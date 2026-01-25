@@ -6,8 +6,8 @@ Este repositório centraliza todos os desafios práticos realizados durante o cu
 
 | Desafio | Status | Pasta | Docker Hub |
 | :--- | :---: | :--- | :--- |
-| **Hello World em Go** | ✅ | [/go](./go) | [araujosullywan/hello-fullcycle](https://hub.docker.com/r/araujosullywan/hello-fullcycle) |
-| **Nginx como Proxy Reverso** | ✅ | [Ver Detalhes](./) | - |
+| **Hello World em Go** | ✅ | [Ver Detalhes](./go) | [araujosullywan/hello-fullcycle](https://hub.docker.com/r/araujosullywan/hello-fullcycle) |
+| **Nginx como Proxy Reverso** | ✅ | [Ver Detalhes](./node) | - |
 
 ---
 
