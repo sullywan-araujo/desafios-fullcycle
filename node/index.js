@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
         console.log('ID Inserido:', results.insertId)
 
         // Vamos listar quem está no banco para você ver o resultado
-        connection.query('SELECT name FROM people', (err, rows) => {
+        connection.query('SELECT  DISTINCT name FROM people', (err, rows) => {
             const listaItens = rows.map(r => `<li>${r.name}</li>`).join('')
 
             res.send(`
