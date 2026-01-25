@@ -1,0 +1,11 @@
+# Binários
+hello-fullcycle
+desafio_fullcycle
+main
+*.exe
+*.bin
+
+# Ideias e SO
+.vscode/
+.DS_Store
+node_modules/

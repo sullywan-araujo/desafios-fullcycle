@@ -1,0 +1,5 @@
+FROM nginx:1.15.0-alpine
+
+# Remove o padrão e copia o seu configurado para Node
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf

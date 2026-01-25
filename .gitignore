@@ -1,0 +1,6 @@
+mysql/*
+!mysql/init.sql
+node_modules/
+java/
+laravel/
+docker-compose.laravel.yaml
