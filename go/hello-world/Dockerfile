@@ -1,4 +1,4 @@
-FROM golang:1.25.6 AS builder
+FROM golang:1.25.6-alpine AS builder
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN go mod download
 COPY . .
 
 # CGO_ENABLED=0 cria um binário estático
-RUN CGO_ENABLED=0 GOOS=linux go build -o hello-fullcycle .
+RUN CGO_ENABLED=0 GOOS=linux go build -o hello-fullcycle -ldflags="-s -w" .
 
 # MultiStage Building
 FROM scratch
