@@ -9,6 +9,8 @@ services:
       - node-network
     volumes:
       - ./node:/usr/src/app
+      # volume anônimo: preserva o que está dentro do container;
+      - /usr/src/app/node_modules
     tty: true
     depends_on:
       - db
