@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y wget ca-certificates tar \
     && wget https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-${DOCKERIZE_ARCH}-${DOCKERIZE_VERSION}.tar.gz \
     && tar -C /usr/local/bin -xzvf dockerize-linux-${DOCKERIZE_ARCH}-${DOCKERIZE_VERSION}.tar.gz \
     && rm dockerize-linux-${DOCKERIZE_ARCH}-${DOCKERIZE_VERSION}.tar.gz \
-    && apt-get clean # Limpa o cache para diminuir o tamanho da imagem
+    # Limpa o cache para diminuir o tamanho da imagem
+    && apt-get clean 
 
 COPY package*.json ./
 RUN npm ci

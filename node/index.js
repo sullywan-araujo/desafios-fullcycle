@@ -12,32 +12,47 @@ const config = {
 
 const connection = mysql.createConnection(config)
 
-app.get('/', (req, res) => {
-    const nomes = [['Sullywan'], ['Wesley'], ['Rodrigo']];
-    const sql = `INSERT INTO people(name) values ?`
+const initDB = () => {
+    const tableQuery = `CREATE TABLE IF NOT EXISTS people (
+        id INT NOT NULL AUTO_INCREMENT,
+        name VARCHAR(255),
+        PRIMARY KEY(id)
+    )`
 
-    // SEMPRE verifique o erro no primeiro parâmetro do callback
-    connection.query(sql, [nomes], (error, results) => {
-        if (error) {
-            console.error('Erro ao inserir:', error.message)
-            return res.status(500).send('Erro no banco: ' + error.message)
+    connection.query(tableQuery, (err) => {
+        if (err) {
+            console.error('Erro ao criar tabela:', err);
+            return;
+        }
+        console.log('Tabela pronta');
+
+        connection.query('SELECT COUNT(*) as total FROM people', (err, results) => {
+            if (!err && results[0].total === 0) {
+                const setupNames = [['Sullywan'], ['Wesley'], ['Rodrigo']];
+                connection.query('INSERT INTO people(name) VALUES ?', [setupNames]);
+                console.log('Dados iniciais inseridos.');
+            }
+        });
+    });
+};
+
+initDB();
+
+app.get('/', (req, res) => {
+    connection.query('SELECT name FROM people', (err, rows) => {
+        if (err) {
+            return res.status(500).send('Erro ao buscar dados.');
         }
 
-        // Se chegou aqui, o 'results' GARANTIDAMENTE tem o insertId
-        console.log('ID Inserido:', results.insertId)
+        const listaItens = rows.map(r => `<li>${r.name}</li>`).join('')
 
-        // Vamos listar quem está no banco para você ver o resultado
-        connection.query('SELECT  DISTINCT name FROM people', (err, rows) => {
-            const listaItens = rows.map(r => `<li>${r.name}</li>`).join('')
-
-            res.send(`
-                <h1>FullCycle Rocks</h1>
-                <h2>Pessoas cadastradas!</h2>
-                <ul>
-                    ${listaItens}
-                </ul>
-            `)
-        })
+        res.send(`
+            <h1>FullCycle Rocks</h1>
+            <h2>Pessoas cadastradas!</h2>
+            <ul>
+                ${listaItens}
+            </ul>
+        `)
     })
 })
 
